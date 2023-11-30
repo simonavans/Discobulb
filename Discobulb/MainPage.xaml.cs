@@ -1,24 +1,34 @@
-﻿namespace Discobulb
+﻿using System.Net.Http.Json;
+using System.Text;
+
+namespace Discobulb
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
-
         public MainPage()
         {
             InitializeComponent();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private async void OnCounterClicked(object sender, EventArgs e)
         {
-            count++;
+            using var client = new HttpClient();
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
+            string apiUrl = "http://localhost/api/newdeveloper/lights/1/state";
+
+            HttpContent content = new StringContent($"{{ \"bri\": {new Random().Next(0, 100)} }}", Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await client.PutAsync(apiUrl, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string jsonString = await response.Content.ReadAsStringAsync();
+                ResponseLabel.Text = jsonString;
+            }
             else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            {
+                Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
+            }
         }
     }
 

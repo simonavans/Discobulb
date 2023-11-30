@@ -26,10 +26,13 @@
 
             <Button
                 x:Name="CounterBtn"
-                Text="Click me" 
-                SemanticProperties.Hint="Counts the number of times you click"
+                Text="Cool HUE Request"
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Fill" />
+
+            <Label
+                x:Name="ResponseLabel"
+                Text="No response made" />
         </VerticalStackLayout>
     </ScrollView>
 
