@@ -6,12 +6,21 @@ using System.Threading.Tasks;
 
 namespace Discobulb.Model
 {
-    public class Bulb
+    public class Bulb(
+        string id,
+        int index,
+        string name,
+        bool isOn = false,
+        bool isReachableByBridge = false,
+        byte brightness = 0,
+        int hue = 0)
     {
-        public string Name { get; set; }
-        public bool IsOn { get; set; }
-        public bool IsReachableByBridge { get; set; }
-        public byte Brightness { get; set; }
-        public int Hue { get; set; }
+        public string Id { get; } = id;
+        public int Index { get; } = index;
+        public string Name { get; } = name;
+        public bool IsOn { get; set; } = isOn;
+        public bool IsReachableByBridge { get; } = isReachableByBridge;
+        public byte Brightness { get; set; } = brightness;
+        public int Hue { get; set; } = hue;
     }
 }
