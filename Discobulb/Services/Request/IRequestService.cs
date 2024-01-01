@@ -10,6 +10,7 @@ namespace Discobulb.Services.Request
     public interface IRequestService
     {
         Task<JsonObject?> GetJsonObjectAsync(string path);
+        Task<string?> GetJsonAsync(string path);
         Task<JsonArray?> GetJsonArrayAsync(string path);
         Task<bool> PutJsonAsync(string path, JsonObject json);
     }
