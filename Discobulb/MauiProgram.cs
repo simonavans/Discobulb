@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Discobulb.Services.Hue;
+using Discobulb.Services.Request;
+using Discobulb.ViewModel;
+using Microsoft.Extensions.Logging;
+using Q42.HueApi;
 
 namespace Discobulb
 {
@@ -18,6 +22,10 @@ namespace Discobulb
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+
+            builder.Services.AddSingleton<IHueService>(new HueServiceImpl("10.0.2.2:80"));
+            builder.Services.AddSingleton<MainPageViewModel>();
+            builder.Services.AddSingleton<MainPage>();
 
             return builder.Build();
         }

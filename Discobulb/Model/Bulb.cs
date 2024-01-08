@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Discobulb.Model
 {
-    public class Bulb
+    public partial class Bulb : ObservableObject
     {
         [JsonPropertyName("state")]
         public BulbState State { get; set; }
@@ -28,15 +29,18 @@ namespace Discobulb.Model
         public string? UniqueId { get; set; }
 
         public int? JsonIndex { get; set; }
+
+        [ObservableProperty]
+        private bool _isSelected;
     }
 
-    public class BulbState
+    public partial class BulbState : ObservableObject
     {
         [JsonPropertyName("on")]
         public bool IsOn { get; set; }
 
-        [JsonPropertyName("bri")]
-        public int Brightness { get; set; }
+        [JsonPropertyName("bri"), ObservableProperty]
+        private int brightness;
 
         [JsonPropertyName("hue")]
         public int Hue { get; set; }

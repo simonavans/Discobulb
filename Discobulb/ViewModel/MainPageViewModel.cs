@@ -1,91 +1,109 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Discobulb.Model;
+using Discobulb.Resources.Localization;
+using Discobulb.Services.Hue;
 using Discobulb.Services.Request;
-using System;
-using System.Collections.Generic;
+using Microsoft.Maui.Graphics.Platform;
+using Q42.HueApi;
+using Q42.HueApi.Interfaces;
+using Q42.HueApi.Models.Groups;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using System.Threading.Tasks;
-using System.Xml;
 
 namespace Discobulb.ViewModel
 {
-    public partial class MainPageViewModel(IRequestService requestService) : ObservableObject
+    public partial class MainPageViewModel(IHueService hueService) : ObservableObject
     {
-        private readonly IRequestService _requestService = requestService;
+        [ObservableProperty]
+        private ObservableCollection<BridgeModel> _bridges = [];
 
         [ObservableProperty]
-        private ObservableCollection<Bulb> _bulbs = [];
+        private ObservableCollection<LightModel> _lights = [];
 
-        public async Task LoadBulbsAsync()
+        [ObservableProperty]
+        private ObservableCollection<LightModel> _selectedLights = [];
+
+        private readonly IHueService _hueService = hueService;
+
+        public async Task<bool> ConnectToBridge(string applicationName, string deviceName)
         {
-            JsonObject? jsonBulbs = await _requestService.GetJsonObjectAsync("lights");
-            if (jsonBulbs == null) return;
+            return await _hueService.ConnectToBridge(applicationName, deviceName);
+        }
 
-            foreach (var jsonPair in jsonBulbs)
+        public async Task LoadLightsAsync()
+        {
+            List<LightModel> lights = await _hueService.GetLightsAsync();
+
+            Lights.Clear();
+
+            foreach (LightModel light in lights)
             {
-                string jsonString = JsonSerializer.Serialize(jsonPair.Value);
-                Bulb? bulb = JsonSerializer.Deserialize<Bulb>(jsonString);
-
-                if (bulb != null)
-                {
-                    bulb.JsonIndex = int.Parse(jsonPair.Key);
-                    Bulbs.Add(bulb);
-                }
+                Lights.Add(light);
             }
         }
 
-        public Bulb? GetBulbFromCache(string uniqueId)
+        public async Task<bool> SetOnAsync(bool on, LightModel light)
         {
-            return
-                (from _bulb in Bulbs
-                where _bulb.UniqueId == uniqueId
-                select _bulb)
-                .FirstOrDefault();
-        }
+            LightModel[] lightsToUpdate = new LightModel[Math.Max(SelectedLights.Count, 1)];
 
-        public Bulb? GetBulbFromCache(int jsonIndex)
-        {
-            return
-                (from _bulb in Bulbs
-                 where _bulb.JsonIndex == jsonIndex
-                 select _bulb)
-                .FirstOrDefault();
-        }
-
-        public async Task ToggleBulbAsync(Bulb bulb)
-        {
-            bool requestedState = !bulb.State.IsOn;
-            JsonObject payload = new() { { "on", requestedState } };
-
-            if (await _requestService.PutJsonAsync($"lights/{bulb.JsonIndex}", payload))
-                bulb.State.IsOn = requestedState;
+            if (SelectedLights.Contains(light))
+                lightsToUpdate = [.. SelectedLights];
             else
-                await Shell.Current.DisplayAlert("Request failed", "Could not alter this bulb, likely due to connectivity problems.", "OK");
+                lightsToUpdate[0] = light;
+
+            if (!await _hueService.SetOnAsync(on, [.. lightsToUpdate]))
+            {
+                foreach (var _light in lightsToUpdate)
+                    _light.On = on;
+                return true;
+            }
+            return false;
         }
 
-        public async Task SetBrightnessAsync(Bulb bulb, byte brightness)
+        public async Task<bool> SetBrightnessAsync(byte brightness, LightModel light)
         {
-            JsonObject payload = new() { { "bri", brightness } };
+            LightModel[] lightsToUpdate = new LightModel[Math.Max(SelectedLights.Count, 1)];
 
-            if (await _requestService.PutJsonAsync($"lights/{bulb.JsonIndex}", payload))
-                bulb.State.Brightness = brightness;
+            if (SelectedLights.Contains(light))
+                lightsToUpdate = [.. SelectedLights];
             else
-                await Shell.Current.DisplayAlert("Request failed", "Could not alter this bulb, likely due to connectivity problems.", "OK");
+                lightsToUpdate[0] = light;
+
+            if (!await _hueService.SetBrightnessAsync(brightness, [.. lightsToUpdate]))
+            {
+                foreach (var _light in lightsToUpdate)
+                    _light.Brightness = brightness;
+                return true;
+            }
+            return false;
         }
 
-        public async Task SetHueAsync(Bulb bulb, int hue)
+        public async Task<bool> SetHueAsync(ushort hue, LightModel light)
         {
-            JsonObject payload = new() { { "hue", hue } };
+            LightModel[] lightsToUpdate = new LightModel[Math.Max(SelectedLights.Count, 1)];
 
-            if (await _requestService.PutJsonAsync($"lights/{bulb.JsonIndex}", payload))
-                bulb.State.Hue = hue;
+            if (SelectedLights.Contains(light))
+                lightsToUpdate = [.. SelectedLights];
             else
-                await Shell.Current.DisplayAlert("Request failed", "Could not alter this bulb, likely due to connectivity problems.", "OK");
+                lightsToUpdate[0] = light;
+
+            if (!await _hueService.SetHueAsync(hue, [.. lightsToUpdate]))
+            {
+                foreach (var _light in lightsToUpdate)
+                    _light.Hue = hue;
+                return true;
+            }
+            return false;
+        }
+
+        public void SetLightSelected(bool selected, LightModel light)
+        {
+            if (selected && !SelectedLights.Contains(light))
+                SelectedLights.Add(light);
+            else if (!selected)
+                SelectedLights.Remove(light);
         }
     }
 }
