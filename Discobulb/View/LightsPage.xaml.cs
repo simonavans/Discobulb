@@ -6,13 +6,25 @@ using System.Text.Json;
 using System.Diagnostics;
 using Discobulb.Model;
 
-namespace Discobulb
+namespace Discobulb.View
 {
-    public partial class MainPage : ContentPage
+    [QueryProperty(nameof(BridgeAddress), "BridgeAddress")]
+    public partial class LightsPage : ContentPage
     {
-        private readonly MainPageViewModel _viewModel;
+        private readonly LightsPageViewModel _viewModel;
 
-        public MainPage(MainPageViewModel viewModel)
+        private string _bridgeAddress;
+        public string BridgeAddress
+        {
+            get => _bridgeAddress;
+            set
+            {
+                _bridgeAddress = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public LightsPage(LightsPageViewModel viewModel)
         {
             InitializeComponent();
 
@@ -27,7 +39,7 @@ namespace Discobulb
             loadingView.IsVisible = true;
             loadedView.IsVisible = false;
 
-            while (!await _viewModel.ConnectToBridge("newdeveloper", "TDMD-Hue-Exercise"))
+            while (!await _viewModel.ConnectToBridge(_bridgeAddress, "newdeveloper", "TDMD-Hue-Exercise"))
             {
                 await Task.Delay(1000);
             }
@@ -75,6 +87,16 @@ namespace Discobulb
         {
             if (sender is CheckBox checkBox && checkBox.BindingContext is LightModel light)
                 _viewModel.SetLightSelected(e.Value, light);
+        }
+
+        private async void OnLightTapped(object sender, EventArgs e)
+        {
+            if (sender is Border border && border.BindingContext is LightModel light)
+            {
+                Dictionary<string, object> param = new() { { "Light", light } };
+
+                await Shell.Current.GoToAsync("LightDetailPage", param);
+            }
         }
     }
 }

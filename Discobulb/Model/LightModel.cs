@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Discobulb.Model
 {
-    public partial class LightModel(string id, string name, bool on, byte brightness, ushort hue) : ObservableObject
+    public partial class LightModel(string id, string name, bool on, byte brightness, ushort hue, string type, string modelId) : ObservableObject
     {
         [ObservableProperty]
         private string _id = id;
@@ -23,5 +23,11 @@ namespace Discobulb.Model
 
         [ObservableProperty]
         private ushort _hue = hue;
+
+        [ObservableProperty]
+        private string _type = type;
+
+        [ObservableProperty]
+        private string _modelId = modelId;
     }
 }

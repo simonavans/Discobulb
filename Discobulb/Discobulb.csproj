@@ -72,6 +72,12 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>AppResources.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="View\LightDetailPage.xaml.cs">
+	    <DependentUpon>LightDetailPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="View\LightsPage.xaml.cs">
+	    <DependentUpon>LightsPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -79,6 +85,15 @@
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="View\BridgePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\LightDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

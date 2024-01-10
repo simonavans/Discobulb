@@ -10,10 +10,9 @@ using Zeroconf;
 
 namespace Discobulb.Services.Hue
 {
-    public class HueServiceImpl(string bridgeAddress) : IHueService
+    public class HueServiceImpl : IHueService
     {
-        private readonly string _bridgeAddress = bridgeAddress; 
-        private LocalHueClient _hueClient = new(bridgeAddress);
+        private LocalHueClient _hueClient;
 
         public async Task<List<BridgeConfig>> GetDetectedBridgesAsync()
         {
@@ -29,9 +28,9 @@ namespace Discobulb.Services.Hue
                 .ToList();
         }
 
-        public async Task<bool> ConnectToBridge(string applicationName, string deviceName)
+        public async Task<bool> ConnectToBridge(string bridgeAddress, string applicationName, string deviceName)
         {
-            _hueClient = new(_bridgeAddress);
+            _hueClient = new(bridgeAddress);
 
             try
             {
@@ -47,7 +46,15 @@ namespace Discobulb.Services.Hue
         public async Task<List<LightModel>> GetLightsAsync()
         {
             return (await _hueClient.GetLightsAsync())
-                .Select(l => new LightModel(l.Id, l.Name, l.State.On, l.State.Brightness, (ushort)l.State.Hue!))
+                .Select(l => new LightModel(
+                    l.Id,
+                    l.Name, 
+                    l.State.On, 
+                    l.State.Brightness, 
+                    (ushort)l.State.Hue!,
+                    l.Type,
+                    l.ModelId)
+                )
                 .ToList();
         }
 

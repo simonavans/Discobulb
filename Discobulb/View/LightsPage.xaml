@@ -4,8 +4,8 @@
              xmlns:model="clr-namespace:Discobulb.Model"
              xmlns:viewmodel="clr-namespace:Discobulb.ViewModel"
              xmlns:lang="clr-namespace:Discobulb.Resources.Localization"
-             x:Class="Discobulb.MainPage"
-             x:DataType="viewmodel:MainPageViewModel">
+             x:Class="Discobulb.View.LightsPage"
+             x:DataType="viewmodel:LightsPageViewModel">
 
     <Grid RowDefinitions="*">
         <Grid
@@ -74,10 +74,16 @@
                     <DataTemplate x:DataType="model:LightModel">
 
                         <Border
-                        Margin="20, 0"
-                        Padding="20"
-                        StrokeShape="RoundRectangle 20"
-                        StrokeThickness="2">
+                            Margin="20, 0"
+                            Padding="20"
+                            StrokeShape="RoundRectangle 20"
+                            StrokeThickness="2">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    NumberOfTapsRequired="1"
+                                    Tapped="OnLightTapped">
+                                </TapGestureRecognizer>
+                            </Border.GestureRecognizers>
                             <Grid
                                 ColumnSpacing="20"
                                 RowSpacing="10"
@@ -144,6 +150,4 @@
             </CollectionView>
         </Grid>
     </Grid>
-
-
 </ContentPage>

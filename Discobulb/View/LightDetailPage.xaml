@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:view="clr-namespace:Discobulb.View"
+             x:Class="Discobulb.View.LightDetailPage"
+             Title="LightDetail">
+    <VerticalStackLayout>
+        <Button Text="Back" Clicked="GoBack" />
+        <Label Text="{Binding Light.Name, StringFormat='Name: {0}'}" />
+        <Label Text="{Binding Light.On, StringFormat='Is On: {0}'}" />
+        <Label Text="{Binding Light.Brightness, StringFormat='Brightness: {0}'}" />
+        <Label Text="{Binding Light.Hue, StringFormat='Hue: {0}'}" />
+        <Label Text="{Binding Light.Type, StringFormat='Type: {0}'}" />
+        <Label Text="{Binding Light.ModelId, StringFormat='Model Id: {0}'}" />
+    </VerticalStackLayout>
+</ContentPage>

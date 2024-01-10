@@ -13,7 +13,7 @@ using System.Text.Json.Nodes;
 
 namespace Discobulb.ViewModel
 {
-    public partial class MainPageViewModel(IHueService hueService) : ObservableObject
+    public partial class LightsPageViewModel(IHueService hueService) : ObservableObject
     {
         [ObservableProperty]
         private ObservableCollection<BridgeModel> _bridges = [];
@@ -26,9 +26,9 @@ namespace Discobulb.ViewModel
 
         private readonly IHueService _hueService = hueService;
 
-        public async Task<bool> ConnectToBridge(string applicationName, string deviceName)
+        public async Task<bool> ConnectToBridge(string bridgeAddress, string applicationName, string deviceName)
         {
-            return await _hueService.ConnectToBridge(applicationName, deviceName);
+            return await _hueService.ConnectToBridge(bridgeAddress, applicationName, deviceName);
         }
 
         public async Task LoadLightsAsync()
