@@ -126,6 +126,12 @@
   <data name="Hue" xml:space="preserve">
     <value>Tint</value>
   </data>
+  <data name="Is_On" xml:space="preserve">
+    <value>Is aan</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Naam</value>
+  </data>
   <data name="Press_Link_Instruction" xml:space="preserve">
     <value>Druk op de Link-knop op je HUE bridge om te starten...</value>
   </data>

@@ -126,6 +126,12 @@
   <data name="Hue" xml:space="preserve">
     <value>Hue</value>
   </data>
+  <data name="Is_On" xml:space="preserve">
+    <value>Is on</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
   <data name="Press_Link_Instruction" xml:space="preserve">
     <value>Press the Link-button on your HUE bridge to start...</value>
   </data>

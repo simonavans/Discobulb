@@ -88,6 +88,24 @@ namespace Discobulb.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is on.
+        /// </summary>
+        internal static string Is_On {
+            get {
+                return ResourceManager.GetString("Is_On", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Press the Link-button on your HUE bridge to start....
         /// </summary>
         internal static string Press_Link_Instruction {
