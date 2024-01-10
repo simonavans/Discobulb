@@ -126,6 +126,9 @@
   <data name="Hue" xml:space="preserve">
     <value>Tint</value>
   </data>
+  <data name="Press_Link_Instruction" xml:space="preserve">
+    <value>Druk op de Link-knop op je HUE bridge om te starten...</value>
+  </data>
   <data name="Req_Failed_Msg" xml:space="preserve">
     <value>Kan lamp {0} niet aanpassen, waarschijnlijk vanwege problemen met de connectiviteit.</value>
   </data>

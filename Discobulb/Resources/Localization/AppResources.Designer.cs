@@ -88,6 +88,15 @@ namespace Discobulb.Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Press the Link-button on your HUE bridge to start....
+        /// </summary>
+        internal static string Press_Link_Instruction {
+            get {
+                return ResourceManager.GetString("Press_Link_Instruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not alter bulb {0}, likely due to connectivity problems..
         /// </summary>
         internal static string Req_Failed_Msg {

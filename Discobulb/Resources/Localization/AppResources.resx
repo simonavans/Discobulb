@@ -126,6 +126,9 @@
   <data name="Hue" xml:space="preserve">
     <value>Hue</value>
   </data>
+  <data name="Press_Link_Instruction" xml:space="preserve">
+    <value>Press the Link-button on your HUE bridge to start...</value>
+  </data>
   <data name="Req_Failed_Msg" xml:space="preserve">
     <value>Could not alter bulb {0}, likely due to connectivity problems.</value>
   </data>

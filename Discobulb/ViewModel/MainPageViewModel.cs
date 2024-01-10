@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using Discobulb.Model;
 using Discobulb.Resources.Localization;
 using Discobulb.Services.Hue;
-using Discobulb.Services.Request;
 using Microsoft.Maui.Graphics.Platform;
 using Q42.HueApi;
 using Q42.HueApi.Interfaces;

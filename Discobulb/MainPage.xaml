@@ -11,21 +11,17 @@
         <Grid
         Grid.RowSpan="3"
         Grid.Row="0"
-        RowDefinitions="*, *"
+        RowDefinitions="*"
         x:Name="loadingView"
         VerticalOptions="Fill">
             <ActivityIndicator Grid.Row="0" Grid.RowSpan="2" IsRunning="True" Color="{StaticResource PrimaryDark}"/>
             <Label
-            Text="Press the Link-button on"
-            Grid.Row="0"
-            HorizontalOptions="Center"
-            VerticalOptions="End"
-            FontSize="Medium"/>
-            <Label
-            Text="your HUE bridge to start..."
-            Grid.Row="1"
-            HorizontalOptions="Center"
-            FontSize="Medium"/>
+                Text="Press the Link-button on your HUE bridge to start..."
+                Margin="80, 0"
+                Grid.Row="0"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                FontSize="Medium"/>
         </Grid>
         <Grid
         Grid.Row="0"

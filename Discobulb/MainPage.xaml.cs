@@ -16,6 +16,8 @@ namespace Discobulb
         {
             InitializeComponent();
 
+            Shell.SetNavBarIsVisible(this, false);
+
             _viewModel = viewModel;
             BindingContext = viewModel;
         }

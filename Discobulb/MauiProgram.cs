@@ -1,5 +1,4 @@
 ﻿using Discobulb.Services.Hue;
-using Discobulb.Services.Request;
 using Discobulb.ViewModel;
 using Microsoft.Extensions.Logging;
 using Q42.HueApi;
