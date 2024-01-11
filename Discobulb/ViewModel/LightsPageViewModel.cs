@@ -1,15 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using Discobulb.Model;
-using Discobulb.Resources.Localization;
 using Discobulb.Services.Hue;
-using Microsoft.Maui.Graphics.Platform;
-using Q42.HueApi;
-using Q42.HueApi.Interfaces;
-using Q42.HueApi.Models.Groups;
 using System.Collections.ObjectModel;
-using System.Text.Json;
-using System.Text.Json.Nodes;
 
 namespace Discobulb.ViewModel
 {

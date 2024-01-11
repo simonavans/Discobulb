@@ -2,7 +2,6 @@
 using Discobulb.View;
 using Discobulb.ViewModel;
 using Microsoft.Extensions.Logging;
-using Q42.HueApi;
 
 namespace Discobulb
 {
