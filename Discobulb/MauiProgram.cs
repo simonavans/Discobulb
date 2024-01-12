@@ -1,4 +1,5 @@
-﻿using Discobulb.Services.Hue;
+﻿using Discobulb.Services.AppNavigation;
+using Discobulb.Services.Hue;
 using Discobulb.View;
 using Discobulb.ViewModel;
 using Microsoft.Extensions.Logging;
@@ -25,6 +26,7 @@ namespace Discobulb
             builder.Services.AddSingleton<IHueService>(new HueServiceImpl());
             builder.Services.AddSingleton<LightsPageViewModel>();
             builder.Services.AddSingleton<LightsPage>();
+            builder.Services.AddSingleton<IAppNavigationService, AppNavigationService>();
 
             return builder.Build();
         }
