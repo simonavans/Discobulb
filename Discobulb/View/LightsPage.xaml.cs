@@ -3,21 +3,13 @@ using Discobulb.Model;
 
 namespace Discobulb.View
 {
-    [QueryProperty(nameof(BridgeAddress), "BridgeAddress")]
+    [QueryProperty(nameof(BridgeAddress), "BridgeAddress"), QueryProperty(nameof(AlreadyConnected), "AlreadyConnected")]
     public partial class LightsPage : ContentPage
     {
         private readonly LightsPageViewModel _viewModel;
 
-        private string _bridgeAddress;
-        public string BridgeAddress
-        {
-            get => _bridgeAddress;
-            set
-            {
-                _bridgeAddress = value;
-                OnPropertyChanged();
-            }
-        }
+        public string BridgeAddress { get; set; }
+        public bool AlreadyConnected { get; set; } = false;
 
         public LightsPage(LightsPageViewModel viewModel)
         {
@@ -33,10 +25,13 @@ namespace Discobulb.View
         {
             loadingView.IsVisible = true;
             loadedView.IsVisible = false;
-
-            while (!await _viewModel.ConnectToBridge(_bridgeAddress, "discobulb", "discobulb"))
+            
+            if (!AlreadyConnected)
             {
-                await Task.Delay(1000);
+                while (!await _viewModel.ConnectToBridge(BridgeAddress, "discobulb", "discobulb"))
+                {
+                    await Task.Delay(1000);
+                }
             }
 
             loadingView.IsVisible = false;

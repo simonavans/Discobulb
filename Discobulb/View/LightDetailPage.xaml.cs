@@ -30,6 +30,7 @@ public partial class LightDetailPage : ContentPage
 
 	private async void GoBack(object? _, EventArgs __)
 	{
-		await Shell.Current.GoToAsync("..");
+		Dictionary<string, object> backParam = new() { { "AlreadyConnected", true } };
+		await Shell.Current.GoToAsync("..", backParam);
 	}
 }
