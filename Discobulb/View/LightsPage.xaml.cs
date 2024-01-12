@@ -1,11 +1,13 @@
 ﻿using Discobulb.ViewModel;
 using Discobulb.Model;
+using Discobulb.Services.AppNavigation;
 
 namespace Discobulb.View
 {
     [QueryProperty(nameof(BridgeAddress), "BridgeAddress")]
     public partial class LightsPage : ContentPage
     {
+        private readonly IAppNavigationService _appNavigationService;
         private readonly LightsPageViewModel _viewModel;
 
         private string _bridgeAddress;
@@ -19,9 +21,10 @@ namespace Discobulb.View
             }
         }
 
-        public LightsPage(LightsPageViewModel viewModel)
+        public LightsPage(IAppNavigationService appNavigationService, LightsPageViewModel viewModel)
         {
             InitializeComponent();
+            _appNavigationService = appNavigationService;
 
             Shell.SetNavBarIsVisible(this, false);
 
@@ -84,13 +87,13 @@ namespace Discobulb.View
                 _viewModel.SetLightSelected(e.Value, light);
         }
 
-        private async void OnLightTapped(object sender, EventArgs e)
+        public async void OnLightTapped(object sender, EventArgs e)
         {
             if (sender is Border border && border.BindingContext is LightModel light)
             {
                 Dictionary<string, object> param = new() { { "Light", light } };
 
-                await Shell.Current.GoToAsync("LightDetailPage", param);
+                await _appNavigationService.NavigateAsync("LightDetailPage", param);
             }
         }
     }

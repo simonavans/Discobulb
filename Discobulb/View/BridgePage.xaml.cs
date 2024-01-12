@@ -1,16 +1,21 @@
+using Discobulb.Services.AppNavigation;
+
 namespace Discobulb.View;
 
 public partial class BridgePage : ContentPage
 {
-	public BridgePage()
+	private readonly IAppNavigationService _appNavigationService;
+
+	public BridgePage(IAppNavigationService appNavigationService)
 	{
 		InitializeComponent();
+		_appNavigationService = appNavigationService;
 	}
 
-	private async void OnConnectClicked(object? sender, EventArgs _)
+	public async void OnConnectClicked(object? sender, EventArgs _)
 	{
         Dictionary<string, object> parameters = new() { { "BridgeAddress", addressInput.Text } };
 
-        await Shell.Current.GoToAsync("LightsPage", parameters);
+		await _appNavigationService.NavigateAsync("LightsPage", parameters);
     }
 }

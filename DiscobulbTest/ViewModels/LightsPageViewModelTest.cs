@@ -3,7 +3,7 @@ using Discobulb.Services.Hue;
 using Discobulb.ViewModel;
 using Moq;
 
-namespace DiscobulbTest
+namespace DiscobulbTest.ViewModels
 {
     public class LightsPageViewModelTest
     {
@@ -46,7 +46,7 @@ namespace DiscobulbTest
             {
                 // Ignore, the mock service will be unable to return a list of lights
             }
-            
+
             // Assert
             mockService.Verify(service => service.GetLightsAsync(), Times.Once());
         }

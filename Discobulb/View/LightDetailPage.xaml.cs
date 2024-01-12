@@ -1,11 +1,13 @@
 using Discobulb.Model;
+using Discobulb.Services.AppNavigation;
 
 namespace Discobulb.View;
 
 [QueryProperty(nameof(Light), "Light")]
 public partial class LightDetailPage : ContentPage
 {
-	private LightModel _light;
+    private readonly IAppNavigationService _appNavigationService;
+    private LightModel _light;
 	public LightModel Light
 	{
 		get => _light;
@@ -19,17 +21,18 @@ public partial class LightDetailPage : ContentPage
 		}
 	}
 
-	public LightDetailPage()
+	public LightDetailPage(IAppNavigationService appNavigationService)
 	{
 		InitializeComponent();
+        _appNavigationService = appNavigationService;
 
-		Shell.SetNavBarIsVisible(this, false);
+        Shell.SetNavBarIsVisible(this, false);
 
 		BindingContext = this;
 	}
 
-	private async void GoBack(object? _, EventArgs __)
+	public async void GoBack(object? _, EventArgs __)
 	{
-		await Shell.Current.GoToAsync("..");
+		await _appNavigationService.NavigateAsync("..");
 	}
 }
