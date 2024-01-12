@@ -34,7 +34,7 @@ namespace Discobulb.View
             loadingView.IsVisible = true;
             loadedView.IsVisible = false;
 
-            while (!await _viewModel.ConnectToBridge(_bridgeAddress, "newdeveloper", "TDMD-Hue-Exercise"))
+            while (!await _viewModel.ConnectToBridge(_bridgeAddress, "discobulb", "discobulb"))
             {
                 await Task.Delay(1000);
             }
