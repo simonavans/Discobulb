@@ -27,6 +27,8 @@ namespace Discobulb
             builder.Services.AddSingleton<LightsPageViewModel>();
             builder.Services.AddSingleton<LightsPage>();
             builder.Services.AddSingleton<IAppNavigationService, AppNavigationService>();
+            builder.Services.AddSingleton<BridgePage>();
+            builder.Services.AddSingleton<LightDetailPage>();
 
             return builder.Build();
         }
