@@ -17,7 +17,7 @@ namespace DiscobulbTest.Views
             sut.GoBack(null, null);
 
             // Assert
-            mockNavigationService.Verify(x => x.NavigateAsync(".."), Times.Once);
+            mockNavigationService.Verify(x => x.NavigateAsync("..", It.IsAny<Dictionary<string, object>>()), Times.Once);
         }
     }
 }
